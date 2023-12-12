@@ -29,8 +29,6 @@ class AppModule {
         return TaskRepository(tds)
     }
 
-
-
     @Provides
     @Singleton
     fun provideTaskDao(@ApplicationContext context : Context) : TaskDao{

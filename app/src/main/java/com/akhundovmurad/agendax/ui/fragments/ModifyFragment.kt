@@ -17,6 +17,7 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.akhundovmurad.agendax.R
 import com.akhundovmurad.agendax.databinding.FragmentModifyBinding
 import com.akhundovmurad.agendax.entity.Task
@@ -81,8 +82,8 @@ class ModifyFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePicke
             val task = Task(null,priority,toDo, binding.date.text.toString()  ,false)
             Log.e("tag date",task.date)
             task.priority?.let { Log.e("tag prior", it) }
-
             viewModel.addNote(task)
+            findNavController().navigateUp()
         }
     }
 

@@ -15,4 +15,12 @@ class TaskDataSource(private val tdao : TaskDao) {
     suspend fun addTask(task : Task) = withContext(Dispatchers.IO){
         tdao.addTask(task)
     }
+
+    suspend fun delete(task: Task) = withContext(Dispatchers.IO){
+        tdao.delete(task)
+    }
+
+    suspend fun tickTask(isDone: Boolean,taskId : Int) = withContext(Dispatchers.IO){
+        tdao.tickTask(isDone,taskId)
+    }
 }

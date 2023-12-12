@@ -9,4 +9,8 @@ class TaskRepository(private val tds : TaskDataSource) {
     suspend fun getAllTask() : List<Task> = tds.loadTasks()
 
     suspend fun addTask(task : Task) = tds.addTask(task)
+
+    suspend fun delete(task: Task) = tds.delete(task)
+
+    suspend fun tickTask(isDone: Boolean,taskId : Int) = tds.tickTask(isDone, taskId)
 }

@@ -12,6 +12,7 @@
         android:backgroundTint="@color/dark_blue">
 
         <TextView
+            android:id="@+id/text_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1"
@@ -21,6 +22,7 @@
     </FrameLayout>
 
     <TextView
+        android:id="@+id/text_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Thur"
