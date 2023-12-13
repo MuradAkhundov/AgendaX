@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/modifyFragment"
-        android:name="com.akhundovmurad.agendax.ui.fragments.ModifyFragment"
+        android:name="com.akhundovmurad.agendax.ui.fragments.SaveFragment"
         android:label="fragment_modify"
-        tools:layout="@layout/fragment_modify" />
+        tools:layout="@layout/fragment_save" />
 </navigation>

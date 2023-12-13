@@ -20,7 +20,11 @@ class TaskDataSource(private val tdao : TaskDao) {
         tdao.delete(task)
     }
 
-    suspend fun tickTask(isDone: Boolean,taskId : Int) = withContext(Dispatchers.IO){
-        tdao.tickTask(isDone,taskId)
+    suspend fun update(task: Task) = withContext(Dispatchers.IO){
+        tdao.update(task)
+    }
+
+    suspend fun search(searchText : String) : List<Task> = withContext(Dispatchers.IO){
+        tdao.search(searchText)
     }
 }

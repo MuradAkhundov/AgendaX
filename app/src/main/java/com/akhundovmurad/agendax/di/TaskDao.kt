@@ -20,7 +20,10 @@ interface TaskDao {
     @Delete
     suspend fun delete(task : Task)
 
-    @Query("UPDATE task SET isDone = :isDone WHERE id = :taskId ")
-    fun tickTask(isDone: Boolean,taskId : Int)
+    @Update
+    suspend fun update(task : Task)
+
+    @Query("SELECT * FROM task WHERE task LIKE '%' || :searchText || '%'")
+    suspend fun search(searchText : String) : List<Task>
 
 }

@@ -19,7 +19,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.akhundovmurad.agendax.R
-import com.akhundovmurad.agendax.databinding.FragmentModifyBinding
+import com.akhundovmurad.agendax.databinding.FragmentSaveBinding
 import com.akhundovmurad.agendax.entity.Task
 import com.akhundovmurad.agendax.viewmodel.ModifyViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,8 +27,8 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 
 @AndroidEntryPoint
-class ModifyFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
-    private lateinit var binding: FragmentModifyBinding
+class SaveFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+    private lateinit var binding: FragmentSaveBinding
     private lateinit var viewModel : ModifyViewModel
     private var priority = "Low"
     private var day = 0
@@ -49,7 +49,7 @@ class ModifyFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePicke
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentModifyBinding.inflate(inflater, container, false)
+        binding = FragmentSaveBinding.inflate(inflater, container, false)
         constructSpinner()
         val time = Calendar.getInstance().time
         val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm")

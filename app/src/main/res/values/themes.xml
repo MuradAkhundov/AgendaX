@@ -8,4 +8,9 @@
     </style>
 
     <style name="Theme.AgendaX" parent="Base.Theme.AgendaX" />
+
+    <style name="MyCheckboxStyle">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorAccent">@color/blue</item>
+    </style>
 </resources>

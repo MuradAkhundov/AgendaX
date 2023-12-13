@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearSnapHelper
@@ -54,12 +55,25 @@ class HomeFragment : Fragment() {
 
 
 
+        binding.search.setOnQueryTextListener( object : OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { viewmodel.search(it) }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let { viewmodel.search(it) }
+                return true
+            }
+
+        })
+
+
         viewmodel.notesList.observe(viewLifecycleOwner){
-            if (it.isNotEmpty()){
                 val adapter = TaskAdapter(requireContext(),it,viewmodel)
                 binding.recyclerTask.adapter = adapter
-            }
         }
+
         return binding.root
     }
 

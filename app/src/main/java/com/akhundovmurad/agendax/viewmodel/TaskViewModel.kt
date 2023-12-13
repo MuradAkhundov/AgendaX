@@ -23,7 +23,7 @@ class TaskViewModel @Inject constructor(private var tRepo: TaskRepository) : Vie
 
      fun loadAllTask() {
         CoroutineScope(Dispatchers.Main).launch {
-            notesList.value = tRepo.getAllTask()
+            notesList.postValue(tRepo.getAllTask())
         }
     }
 
@@ -32,9 +32,12 @@ class TaskViewModel @Inject constructor(private var tRepo: TaskRepository) : Vie
         loadAllTask()
     }
 
-    fun tickTask(isDone: Boolean,taskId : Int) = CoroutineScope(Dispatchers.Main).launch{
-        tRepo.tickTask(isDone, taskId)
-        Log.e("Tag",taskId.toString())
+    fun update(task: Task) = CoroutineScope(Dispatchers.Main).launch{
+        tRepo.update(task)
     }
+
+     fun search(searchText : String)   = CoroutineScope(Dispatchers.Main).launch {
+         notesList.value = tRepo.search(searchText)
+     }
 
 }

@@ -36,8 +36,6 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
 
-
-
     <androidx.appcompat.widget.SearchView
         android:id="@+id/search"
         android:layout_width="match_parent"
@@ -76,6 +74,8 @@
         android:layout_marginBottom="20dp"
         android:id="@+id/fab"
         />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,7 +6,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.akhundovmurad.agendax.R
 import com.akhundovmurad.agendax.databinding.TaskItemBinding
 import com.akhundovmurad.agendax.entity.Task
 import com.akhundovmurad.agendax.viewmodel.TaskViewModel
@@ -33,20 +35,37 @@ class TaskAdapter(val mContext : Context, private val list : List<Task>, private
         Log.e("tag", itemlist.isDone.toString())
 
         b.task.text = itemlist.task
+        b.time.text = itemlist.date
         if (itemlist.isDone){
             b.task.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            b.time.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+            b.checkbox.isChecked = true
+        }
+
+        b.priority.backgroundTintList = when(itemlist.priority){
+            "Low" -> ContextCompat.getColorStateList(mContext, R.color.green)
+            "Medium" -> ContextCompat.getColorStateList(mContext, R.color.yellow)
+            "High" -> ContextCompat.getColorStateList(mContext, R.color.red)
+            else -> ContextCompat.getColorStateList(mContext, R.color.green)
+
         }
 
         b.delete.setOnClickListener {
             viewModel.delete(itemlist)
-            Toast.makeText(mContext,"Deleted",Toast.LENGTH_SHORT).show()
         }
 
         b.checkbox.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
                 b.task.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
-                Log.e("tag",position.toString())
-                viewModel.tickTask(true,position)
+                b.time.paintFlags = Paint.STRIKE_THRU_TEXT_FLAG
+                val task = Task(itemlist.id,itemlist.priority,itemlist.task,itemlist.date,true)
+                viewModel.update(task)
+            }
+            else{
+                b.task.paintFlags = 0
+                b.time.paintFlags = 0
+                val task = Task(itemlist.id,itemlist.priority,itemlist.task,itemlist.date,true)
+                viewModel.update(task)
             }
         }
 

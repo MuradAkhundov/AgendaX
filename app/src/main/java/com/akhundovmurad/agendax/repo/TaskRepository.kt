@@ -12,5 +12,7 @@ class TaskRepository(private val tds : TaskDataSource) {
 
     suspend fun delete(task: Task) = tds.delete(task)
 
-    suspend fun tickTask(isDone: Boolean,taskId : Int) = tds.tickTask(isDone, taskId)
+    suspend fun update(task: Task) = tds.update(task)
+
+    suspend fun search(searchText : String) : List<Task>  = tds.search(searchText)
 }
