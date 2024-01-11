@@ -7,12 +7,13 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.akhundovmurad.agendax.entity.Task
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface TaskDao {
 
     @Query("SELECT * FROM task")
-    suspend fun loadTasks() : List<Task>
+    fun loadTasks(): Flow<List<Task>>
 
     //if inserted before , then replace
     @Insert(onConflict = OnConflictStrategy.REPLACE)

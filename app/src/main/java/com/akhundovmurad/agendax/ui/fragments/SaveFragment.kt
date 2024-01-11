@@ -34,15 +34,15 @@ class SaveFragment : Fragment(), DatePickerDialog.OnDateSetListener, TimePickerD
     private var day = 0
     private var month: Int = 0
     private var year: Int = 0
-    var hour: Int = 0
-    var minute: Int = 0
-    var myDay = 0
-    var myMonth: Int = 0
-    var myYear: Int = 0
-    var myHour: Int = 0
-    var myMinute: Int = 0
-    var selectedDate = ""
-    var selectedTime = ""
+    private var hour: Int = 0
+    private var minute: Int = 0
+    private var myDay = 0
+    private var myMonth: Int = 0
+    private var myYear: Int = 0
+    private var myHour: Int = 0
+    private var myMinute: Int = 0
+    private var selectedDate = ""
+    private var selectedTime = ""
     @SuppressLint("SimpleDateFormat")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

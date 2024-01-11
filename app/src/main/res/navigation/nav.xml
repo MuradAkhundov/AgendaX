@@ -11,12 +11,20 @@
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
+            android:id="@+id/toSave"
+            app:destination="@id/saveFragment" />
+        <action
             android:id="@+id/toModify"
             app:destination="@id/modifyFragment" />
     </fragment>
     <fragment
-        android:id="@+id/modifyFragment"
+        android:id="@+id/saveFragment"
         android:name="com.akhundovmurad.agendax.ui.fragments.SaveFragment"
-        android:label="fragment_modify"
+        android:label="fragment_save"
         tools:layout="@layout/fragment_save" />
+    <fragment
+        android:id="@+id/modifyFragment"
+        android:name="com.akhundovmurad.agendax.ui.fragments.ModifyFragment"
+        android:label="fragment_modify"
+        tools:layout="@layout/fragment_modify" />
 </navigation>

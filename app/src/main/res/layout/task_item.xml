@@ -24,13 +24,15 @@
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="12:00AM"/>
+            android:text="12:00AM"
+            android:fontFamily="@font/rubik_medium"/>
 
         <TextView
             android:id="@+id/task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Go to church"/>
+            android:text="Go to church"
+            android:fontFamily="@font/rubik_medium"/>
 
     </LinearLayout>
 

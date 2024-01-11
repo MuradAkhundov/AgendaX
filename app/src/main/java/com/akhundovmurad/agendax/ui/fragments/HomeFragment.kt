@@ -1,12 +1,15 @@
 package com.akhundovmurad.agendax.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearSnapHelper
 import com.akhundovmurad.agendax.R
@@ -14,6 +17,7 @@ import com.akhundovmurad.agendax.databinding.FragmentHomeBinding
 import com.akhundovmurad.agendax.ui.adapter.TaskAdapter
 import com.akhundovmurad.agendax.viewmodel.TaskViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -22,40 +26,27 @@ import java.util.Locale
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private lateinit var binding : FragmentHomeBinding
-    private lateinit var viewmodel : TaskViewModel
-    private val lastDayInCalendar = Calendar.getInstance(Locale.ENGLISH)
-    private val sdf = SimpleDateFormat("MMMM yyyy", Locale.ENGLISH)
-    private val cal = Calendar.getInstance(Locale.ENGLISH)
+    private lateinit var binding: FragmentHomeBinding
+    private lateinit var viewmodel: TaskViewModel
 
-    private val currentDate = Calendar.getInstance(Locale.ENGLISH)
-    private val currentDay = currentDate[Calendar.DAY_OF_MONTH]
-    private val currentMonth = currentDate[Calendar.MONTH]
-    private val currentYear = currentDate[Calendar.YEAR]
 
-    private var selectedDay: Int = currentDay
-    private var selectedMonth: Int = currentMonth
-    private var selectedYear: Int = currentYear
-    private val dates = ArrayList<Date>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentHomeBinding.inflate(inflater,container,false)
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
 
 
         val snapHelper = LinearSnapHelper()
         snapHelper.attachToRecyclerView(binding.recyclerDays)
 
-        lastDayInCalendar.add(Calendar.MONTH, 6)
         binding.fab.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.toModify)
+            Navigation.findNavController(it).navigate(R.id.toSave)
         }
 
-
-
-        binding.search.setOnQueryTextListener( object : OnQueryTextListener{
+        binding.search.setOnQueryTextListener(object : OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let { viewmodel.search(it) }
                 return true
@@ -65,13 +56,16 @@ class HomeFragment : Fragment() {
                 newText?.let { viewmodel.search(it) }
                 return true
             }
-
         })
 
 
-        viewmodel.notesList.observe(viewLifecycleOwner){
-                val adapter = TaskAdapter(requireContext(),it,viewmodel)
-                binding.recyclerTask.adapter = adapter
+        val adapter = TaskAdapter(requireContext(), emptyList(), viewmodel, this)
+        binding.recyclerTask.adapter = adapter
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewmodel.notesList.collect {
+                Log.e("tag", "observer")
+                adapter.updateList(it)
+            }
         }
 
         return binding.root
@@ -79,12 +73,15 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val tempViewModel : TaskViewModel by viewModels()
+        val tempViewModel: TaskViewModel by activityViewModels()
         viewmodel = tempViewModel
     }
 
     override fun onResume() {
         super.onResume()
         viewmodel.loadAllTask()
+        Log.e("Tag","resume")
     }
 }
+
+
